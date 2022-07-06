@@ -23,10 +23,14 @@ public class InfoServlet extends HttpServlet {
         System.out.println("InfoServlet 생성자 호출!!");
     }
 
+//    private String name = "바보";
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //        System.out.println("info 요청이 들어왔습니다.");
+
+//        this.name = req.getParameter("name");
+
 
         // 요청 정보 받기
         double height = Double.parseDouble(req.getParameter("height"));
@@ -56,6 +60,12 @@ public class InfoServlet extends HttpServlet {
         w.write("</html>");
 
     }
+
+    @Override
+    public void destroy() {
+        System.out.println("서블릿 destroyed!!");
+    }
+
 
     private double calcBMI(double cm, double kg) {
         double m = cm / 100;
