@@ -27,7 +27,7 @@ public class InfoServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        System.out.println("info 요청이 들어왔습니다.");
+        System.out.println("info 요청이 들어왔습니다.");
 
 //        this.name = req.getParameter("name");
 
@@ -37,8 +37,8 @@ public class InfoServlet extends HttpServlet {
         double weight = Double.parseDouble(req.getParameter("weight"));
 
         // 응답 정보 생성하기
-        resp.setContentType("text/html"); // 상대방에게 응답할 때 html 스타일로 응답할거다.
         resp.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html"); // 상대방에게 응답할 때 html 스타일로 응답할거다.
 
         PrintWriter w = resp.getWriter();
 

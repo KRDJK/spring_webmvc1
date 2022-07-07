@@ -20,9 +20,9 @@
 </head>
 <body>
     
-    <h1>jsp버전 회원가입 양식</h1>
+    <h1>mvc버전 회원가입 양식</h1>
 
-    <form action="/chap02/reg_process.jsp" method="post">
+    <form action="save" method="post">
         <label>
             # 계정명: <input type="text" name="account">
         </label>
