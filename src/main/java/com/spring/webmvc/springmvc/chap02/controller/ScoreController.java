@@ -78,7 +78,7 @@ public class ScoreController {
 
 
     // 이름 정렬 요청
-    @RequestMapping("/score/list/sort")
+    @RequestMapping("/score/list?sort=name")
     public String sortName(String name, Model model) {
 
         log.info("정렬 요청!! /score/list/sort= " + name);
@@ -87,12 +87,12 @@ public class ScoreController {
 
         model.addAttribute(scores);
 
-        return "chap02/score-list";
+        return "redirect:/score/list";
     }
 
 
     // 이름 정렬 요청
-    @RequestMapping("/score/list/sort")
+    @RequestMapping("/score/list?sort=grade")
     public String sortGrade(String grade, Model model) {
 
         log.info("정렬 요청!! /score/list/sort= " + grade);

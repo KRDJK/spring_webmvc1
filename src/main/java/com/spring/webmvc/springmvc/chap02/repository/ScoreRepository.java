@@ -23,7 +23,7 @@ public interface ScoreRepository {
 //    // 이름순 정렬
 //    List<Score> sortName();
 //
-//    // 평균순 정렬
-//    List<Score> sortAvg();
+//    // 학점순 정렬
+//    List<Score> sortGrade();
 
 }

@@ -50,7 +50,7 @@ public class ScoreRepositoryImpl implements ScoreRepository {
 
         // SELECT문의 경우는 query() 메서드를 사용한다.
 
-         /* 다른 방법 1.
+         /* 다른 방법 1. ( 익명 클래스 활용 : 하단 메서드 부분 조금 오버라이딩 하자고 클래스 파일 새로 만들거야??? )
         return template.query(sql, new RowMapper<Score>() {
             @Override
             public Score mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -59,7 +59,9 @@ public class ScoreRepositoryImpl implements ScoreRepository {
         });
          */
 
-        // 다른 방법 2. ( 방법 1의 람다식 버전 )
+
+        // 다른 방법 2. ( 방법 1의 람다식 버전 : 익명 클래스를 보다 더 간소하게 코드 작성 가능! => 메서드 하나만 있는 클래스라서 람다식 적용 가능 )
+        // https://velog.io/@heoseungyeon/%EB%9E%8C%EB%8B%A4-%ED%91%9C%ED%98%84%EC%8B%9D : 람다 표현식 정리된 블로그
 //        return template.query(sql, (rs, rowNum) -> new Score(rs));
 
         List<Score> scoreList = template.query(sql, new ScoreRowMapper());
@@ -93,7 +95,7 @@ public class ScoreRepositoryImpl implements ScoreRepository {
 //    }
 //
 //    @Override
-//    public List<Score> sortAvg() {
+//    public List<Score> sortGrade() {
 //        return null;
 //    }
 }

@@ -44,6 +44,7 @@ public class Score { // 엔터티 클래스. db랑 1:1로 매칭되는 클래스
     }
 
 
+    // JDBC 템플릿 왈 : 알아서 반복문 돌려서 rs.next() 값이 안나올때까지 줄테니까 어떤 컬럼이 해당 객체의 어떤 필드랑 매칭되는지만 알려줘!!
     public Score(ResultSet rs) throws SQLException {
         this.stuNum = rs.getInt("stu_num");
         this.name = rs.getString("stu_name");

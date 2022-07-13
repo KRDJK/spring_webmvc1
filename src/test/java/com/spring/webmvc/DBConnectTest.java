@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class DBConnectTest {
+public class DBConnectTest { // 단순 DB 연결 테스트
 
     private String uid = "hr";
     private String upw = "hr";
