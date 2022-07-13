@@ -16,20 +16,27 @@
         <div class="container">
             <h2># 주문 목록</h2>
             
-            <form action="/coffee/check" method="get">
+            <form action="/coffee/check" method="post">
                 <label>
-                    <select name="coffeeName" id="coffee-name" size="3">
+                    <select name="menu" id="coffee-name" size="3">
                         <optgroup label="커피">
                             <option value="아메리카노">아메리카노</option>
                             <option value="카페라떼">카페라떼</option>
                         </optgroup>
     
                         <optgroup label="음료">
-                            <option value="복숭아 아이스티">복숭아 아이스티</option>
+                            <option value="아이스티">아이스티</option>
                         </optgroup>
     
                     </select>
-                    <h2 id="price"># 가격: </h2>
+                    
+                    <br>
+
+                    <label class="price"># 가격: 3000원</label>
+                    <input id="price-tag" type="hidden" name="price" value="3000">
+
+                    <br>
+
                     <button type="submit">주문하기</button>
                 </label>
             </form>
@@ -40,12 +47,25 @@
 
     <script>
 
+        const coffeePriceList = {
+                아메리카노: 3000,
+                카페라떼: 4500,
+                아이스티: 4000,
+            };
+
         const $select = document.querySelector('select');
-        const $price = document.getElementById('price');
+        const $priceTag = document.getElementById('price-tag');
 
         $select.addEventListener('change',  (e) => {
-            console.log(e.target);
-            
+            console.log(e.target.value);
+            const price = coffeePriceList[e.target.value];
+
+            const $priceLabel = document.querySelector('.price');
+            $priceLabel.textContent = '# 가격: ' + price + "원";
+
+            const $priceTag = document.getElementById('price-tag');
+            $priceTag.value = price;
+
         });
 
     </script>

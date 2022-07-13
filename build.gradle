@@ -27,6 +27,12 @@ dependencies {
 	//jsp 라이브러리 추가
 	implementation 'javax.servlet:jstl'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+	//오라클 라이브러리 (11g edition - gradle, maven 라이센스 문제 공식 지원 불가)
+	implementation fileTree(dir: '/src/main/webapp/WEB-INF/lib', include: ['*.jar'])
+
+	//spring jdbc 라이브러리 이건 설치되자마자 DB 설정 파일을 요구함. 바로 DB 연결 정보 설정을 해야함. DataBaseConfig.class
+	implementation "org.springframework.boot:spring-boot-starter-jdbc"
 }
 
 tasks.named('test') {

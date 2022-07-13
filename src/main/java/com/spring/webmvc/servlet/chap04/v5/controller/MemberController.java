@@ -11,13 +11,13 @@ import java.util.List;
 
 @RequestMapping("/mvc/v5/*") // 이런 요청이 들어오면 처리해라
 //@Component
-@Controller // 이 객체마저도 스프링 컨테이너에 등록.
+//@Controller // 이 객체마저도 스프링 컨테이너에 등록.
 public class MemberController {
 
     private final MemberRepository repository;
 
 
-    @Autowired
+//    @Autowired
     public MemberController(MemberRepository repository) {
         this.repository = repository;
     }
