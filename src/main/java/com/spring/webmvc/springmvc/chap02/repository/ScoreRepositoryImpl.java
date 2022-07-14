@@ -13,6 +13,7 @@ import java.util.List;
 @Repository // 이 클래스가 저장소라고 명시하면서 스프링 컨테이너에 빈 등록하는 것. (@component 보다 저장소인걸 더 명시!)
 @RequiredArgsConstructor // final 필드를 초기화 해주는 생성자 선언 !! 아래의 @Autowired 부분을 대신 해준다.
 public class ScoreRepositoryImpl implements ScoreRepository {
+    // 얘의 책임 : DB에 sql문 전송해서 데이터를 주고 받는 책임!!
 
     // 스프링 JDBC - JDBC Template : JDBC를 단순화
     private final JdbcTemplate template; // 생성자 없이 final을 쓰면 에러남.
@@ -40,13 +41,24 @@ public class ScoreRepositoryImpl implements ScoreRepository {
 
     @Override
     public List<Score> findAll(String sort) {
-        String sql = "SELECT * FROM tbl_score";
+        StringBuilder sql = new StringBuilder("SELECT * FROM tbl_score");
 
-        if (sort.equals("name"))  {
-            sql += " ORDER BY stu_name";
-        } else if (sort.equals("grade")) {
-            sql += " ORDER BY grade";
+        // ORDER BY ? :
+            // 이런 식으로 sort 값을 넣으려고 했다면.. 매개변수 sort가 타입이 문자열이기 때문에 ?에 값이 "sort" 이런 식으로 문자열로 들어간다고 함.
+            // 그래서  ORDER BY 를 쓸 때는 뒤에 ?를 쓰면 안된다..
+
+        switch (sort) {
+            case "num":
+                sql.append(" ORDER BY stu_num");
+                break;
+            case "name":
+                sql.append(" ORDER BY stu_name");
+                break;
+            case "grade":
+                sql.append(" ORDER BY grade");
+                break;
         }
+
 
         // SELECT문의 경우는 query() 메서드를 사용한다.
 
@@ -64,7 +76,7 @@ public class ScoreRepositoryImpl implements ScoreRepository {
         // https://velog.io/@heoseungyeon/%EB%9E%8C%EB%8B%A4-%ED%91%9C%ED%98%84%EC%8B%9D : 람다 표현식 정리된 블로그
 //        return template.query(sql, (rs, rowNum) -> new Score(rs));
 
-        List<Score> scoreList = template.query(sql, new ScoreRowMapper());
+        List<Score> scoreList = template.query(sql.toString(), new ScoreRowMapper());
 
         return scoreList;
     }

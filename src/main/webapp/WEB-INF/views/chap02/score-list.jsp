@@ -7,14 +7,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- reset css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-    
+
     <!-- bootstrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    
+
+
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
@@ -57,13 +57,27 @@
             padding: 200px 50px 100px;
             font-size: 1.5em;
         }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+
+            width: 50%;
+        }
+        .list-header .sort-link-group {
+            display: flex;
+
+        }
+        .list-header .sort-link-group div {
+            margin-right: 20px;
+        }
+
     </style>
 </head>
 
 <body>
 
     <div class="wrap">
-
 
         <section class="score">
             <h1>시험 점수 등록</h1>
@@ -89,14 +103,17 @@
             <hr>
 
             <ul class="score-list">
-                <li>총 학생 수: ${scores.size()}명</li>
-                <a href="/score/list?sort=name">이름으로 정렬하기</a>
-                <a href="/score/list?sort=grade">학점으로 정렬하기</a>
-                
-                
+                <li class="list-header">
+                    <div class="count">총 학생 수: ${scores.size()}명</div>
+                    <div class="sort-link-group">
+                        <div><a href="/score/list?sort=num">학번순</a></div>
+                        <div><a href="/score/list?sort=name">이름순</a></div>
+                        <div><a href="/score/list?sort=average">평균순</a></div>
+                    </div>
+                </li>
 
+                
                 <c:forEach var="s" items="${scores}">
-
                     <li>
                         # 학번: ${s.stuNum}, 이름: <a href="/score/detail?stuNum=${s.stuNum}">${s.name}</a>, 국어:
                         ${s.kor}점,
@@ -123,7 +140,7 @@
             //console.log('클릭이벤트 발동!');
 
             if (confirm('정말로 삭제하시겠습니까?')) {
-                //삭제 진행                
+                //삭제 진행
                 location.href = e.target.getAttribute('href');
             } else {
                 //삭제 취소
