@@ -7,6 +7,8 @@ import lombok.ToString;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
 
 @Setter @Getter @ToString
 @NoArgsConstructor
@@ -14,6 +16,8 @@ public class Content {
     // 서버에서 작성하는 데이터
     private int boardNum; // 글 번호
 
+    // 게시글 각각 댓글 리스트들이 있다.
+    private List<Comment> commentList; // 게시글이 생성된 직후에는 빈 리스트, 화면에도 안보이다가 하나 입력될 때부터 리스트 출력되어야 함.
 
 
     // 클라이언트가 전달할 데이터

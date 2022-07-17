@@ -1,7 +1,9 @@
 package com.spring.webmvc.springmvc.prac0714.controller;
 
+import com.spring.webmvc.springmvc.prac0714.domain.Comment;
 import com.spring.webmvc.springmvc.prac0714.domain.Content;
 import com.spring.webmvc.springmvc.prac0714.service.BoardService;
+import com.spring.webmvc.springmvc.prac0714.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
 
-    private final BoardService service;
+    private final BoardService bService;
+    private final CommentService cService;
 
 
     // 게시판 목록 화면 요청
@@ -27,7 +30,7 @@ public class BoardController {
     public ModelAndView list() {
         log.info("목록 화면 요청이 들어옴!");
 
-        List<Content> contentList = service.listService();
+        List<Content> contentList = bService.listService();
 
         ModelAndView mv = new ModelAndView("/prac0714/board-list");
         mv.addObject(contentList);
@@ -41,11 +44,33 @@ public class BoardController {
     public String detail(int boardNum, Model model) {
         log.info("{}번 게시글 상세조회 요청이 들어옴!", boardNum);
 
-        Content content = service.detailService(boardNum);
+        Content content = bService.detailService(boardNum);
 
         model.addAttribute("c", content);
 
         return "prac0714/board-detail";
+    }
+
+
+    // 게시글별 댓글 등록 요청
+    @PostMapping("/content/addComment")
+    public String registerComment(Comment comment) {
+        log.info("댓글 등록 요청이 들어옴!" + comment.toString());
+
+        cService.addCmtService(comment);
+
+        return "redirect:/board/content?boardNum=" + comment.getBoardNum();
+    }
+
+
+    // 게시글별 댓글 삭제 요청
+    @GetMapping("/content/delComment")
+    public String deleteComment(int boardNum, String writer) {
+        log.info("{}번 게시글의 작성자: {}의 댓글 삭제 요청이 들어옴!", boardNum, writer);
+
+        cService.delCmtService(boardNum, writer);
+
+        return "redirect:/board/content?boardNum=" + boardNum;
     }
 
 
@@ -60,10 +85,10 @@ public class BoardController {
 
     // 게시판 글 작성 후 등록 요청
     @PostMapping("/write")
-    public String register(Content content) {
+    public String registerContent(Content content) {
         log.info("작성된 게시글 등록 요청!!" + content);
 
-        return service.writeService(content) ? "redirect:/board/list" : "redirect:/board/write";
+        return bService.writeService(content) ? "redirect:/board/list" : "redirect:/board/write";
     }
     
     
@@ -72,7 +97,7 @@ public class BoardController {
     public String delete(int boardNum) {
         log.trace("{}번 게시글 삭제 요청이 들어옴!", boardNum);
 
-        service.deleteService(boardNum);
+        bService.deleteService(boardNum);
 
         return "redirect:/board/list";
     }
@@ -83,7 +108,7 @@ public class BoardController {
     public String modifyForm(int boardNum, Model model) {
         log.trace("{}번 게시글 수정 화면 요청이 들어옴!", boardNum);
 
-        Content content = service.detailService(boardNum);
+        Content content = bService.detailService(boardNum);
 
         model.addAttribute("c", content);
 
@@ -96,7 +121,7 @@ public class BoardController {
     public String modify(Content content) {
         log.trace("게시글 수정 완료 후 반영 요청이 들어옴" + content);
 
-        service.modifyService(content);
+        bService.modifyService(content);
 
         return "redirect:/board/content?boardNum=" + content.getBoardNum();
     }

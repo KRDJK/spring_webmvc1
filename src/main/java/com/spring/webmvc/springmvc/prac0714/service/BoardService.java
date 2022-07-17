@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
-public class BoardService {
+@RequiredArgsConstructor
+public class BoardService { // DB와 Controller 간의 소통을 하게 해주는 중간 다리 클래스 (단일 책임 원칙을 지키기 위해)
 
     private final BoardRepository repository;
+
+    private final CommentService service;
 
 
     // 게시판 목록 요청 중간 처리 메서드
@@ -32,8 +34,9 @@ public class BoardService {
         repository.upViewCount(boardNum);
 
 
-        //
         Content content = repository.findOneContent(boardNum);
+        // 해당 게시글 댓글까지
+        content.setCommentList(service.listCmtService(boardNum));
 
         return content;
     }
@@ -56,5 +59,5 @@ public class BoardService {
         return repository.modify(content);
     }
 
-    
+
 }
