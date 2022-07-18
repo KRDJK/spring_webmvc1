@@ -12,7 +12,7 @@ CREATE TABLE comments (
 ALTER TABLE comments
 ADD CONSTRAINT fk_board_no
 FOREIGN KEY (board_no)
-REFERENCES board (board_no);
+REFERENCES board (board_no) ON DELETE CASCADE;
 
 commit;
 
