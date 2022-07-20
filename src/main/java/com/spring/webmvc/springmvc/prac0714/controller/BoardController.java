@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -41,10 +43,10 @@ public class BoardController {
 
     // 게시판 목록 상세조회 요청
     @GetMapping("/content")
-    public String detail(int boardNum, Model model) {
+    public String detail(int boardNum, Model model, HttpServletRequest request, HttpServletResponse response) {
         log.info("{}번 게시글 상세조회 요청이 들어옴!", boardNum);
 
-        Content content = bService.detailService(boardNum);
+        Content content = bService.detailService(boardNum, request, response);
 
         model.addAttribute("c", content);
 
@@ -105,10 +107,10 @@ public class BoardController {
 
     // 게시판 글 수정 화면 요청
     @GetMapping("/modify")
-    public String modifyForm(int boardNum, Model model) {
+    public String modifyForm(int boardNum, Model model, HttpServletRequest request, HttpServletResponse response) {
         log.trace("{}번 게시글 수정 화면 요청이 들어옴!", boardNum);
 
-        Content content = bService.detailService(boardNum);
+        Content content = bService.detailService(boardNum, request, response);
 
         model.addAttribute("c", content);
 
