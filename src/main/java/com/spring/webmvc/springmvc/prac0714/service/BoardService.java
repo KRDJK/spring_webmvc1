@@ -50,12 +50,13 @@ public class BoardService { // DB와 Controller 간의 소통을 하게 해주�
         Cookie foundCookie = WebUtils.getCookie(request, "c" + boardNum);
 
         if (foundCookie == null) {
+            repository.upViewCount(boardNum);
+
             Cookie cookie = new Cookie("c" + boardNum, String.valueOf(boardNum));
             cookie.setMaxAge(60);
             cookie.setPath("/board/content");
             response.addCookie(cookie);
 
-            repository.upViewCount(boardNum);
         }
     }
 

@@ -33,6 +33,9 @@ dependencies {
 
 	//spring jdbc 라이브러리 이건 설치되자마자 DB 설정 파일을 요구함. 바로 DB 연결 정보 설정을 해야함. DataBaseConfig.class
 	implementation "org.springframework.boot:spring-boot-starter-jdbc"
+
+	//마이바티스 라이브러리
+	implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0"
 }
 
 tasks.named('test') {

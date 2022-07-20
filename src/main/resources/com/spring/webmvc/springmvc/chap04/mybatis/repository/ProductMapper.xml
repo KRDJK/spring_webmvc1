@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--이 주석 기준 상단은 복붙하면 됨.-->
+
+<!-- Mapper 태그는 sql을 매핑할 때 사용하는 태그이다.
+    namespace 속성에는 사용할 인터페이스의 [풀 패키지경로 + 인터페이스] 이름을 적는다.
+-->
+<mapper namespace="com.spring.webmvc.springmvc.chap04.mybatis.repository.ProductMapper">
+    
+    <!-- 제품 등록 SQL 작성!! id 속성에는 추상메서드 이름을 적는다. 추상메서드 리턴타입이 뭐든간에 알아서 맞춰서 보내준다. -->
+    <insert id="save">
+        INSERT INTO tbl_product
+        (serial_no, product_name, price)
+        VALUES (TO_CHAR(SYSDATE, 'YYYYMMDD')
+        || LPAD(SEQ_PRODUCT.nextval, 4, '0'),
+        #{productName}, #{price})
+    </insert>
+    
+</mapper>
