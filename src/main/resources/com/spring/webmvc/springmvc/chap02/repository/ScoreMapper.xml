@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.webmvc.springmvc.chap02.repository.ScoreMapper">
+
+    <insert id="save">
+        INSERT INTO tbl_score
+        VALUES (seq_tbl_score.nextval, #{name}, #{kor}, #{eng}, #{math}, #{total}, #{average}, #{grade})
+    </insert>
+
+    <delete id="remove">
+        DELETE FROM tbl_score
+        WHERE stu_num = ${stuNum}
+    </delete>
+
+
+    <resultMap id="rm" type="com.spring.webmvc.springmvc.chap02.domain.Score">
+        <result property="name" column="stu_name" />
+        <result property="stuNum" column="stu_num" />
+    </resultMap>
+
+
+    <select id="findAll" resultMap="rm">
+        SELECT *
+        FROM tbl_score
+    </select>
+
+
+    <select id="findOne" resultMap="rm">
+        SELECT *
+        FROM tbl_score
+        WHERE stu_num = #{stuNum}
+    </select>
+    
+    
+    <select id="totalStudent" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_score
+    </select>
+</mapper>
