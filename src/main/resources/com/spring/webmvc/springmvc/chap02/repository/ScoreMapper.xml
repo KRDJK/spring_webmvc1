@@ -22,9 +22,20 @@
     </resultMap>
 
 
+    <!-- 동적 SQL 작성법 -->
     <select id="findAll" resultMap="rm">
-        SELECT *
-        FROM tbl_score
+        SELECT * FROM tbl_score
+
+        <if test="sort == 'num'">
+            ORDER BY stu_num
+        </if>
+        <if test="sort == 'name'">
+            ORDER BY stu_name
+        </if>
+        <if test="sort == 'average'">
+            ORDER BY average DESC
+        </if>
+
     </select>
 
 

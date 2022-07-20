@@ -37,7 +37,8 @@ public class ScoreController {
 
 
 //        List<Score> scoreList = repository.findAll(sort); 기본 jdbc 템플릿 활용시
-        List<Score> scoreList = repository.findAll(); // mybatis로 변경시
+//        List<Score> scoreList = repository.findAll(); // mybatis로 변경시
+        List<Score> scoreList = repository.findAll(sort); // mybatis로 변경 후 order by 도 학습한 뒤
 
         // 이름 마킹 처리 (성 빼고 *처리)
         for (Score score : scoreList) {
