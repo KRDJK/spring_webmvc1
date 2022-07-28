@@ -30,7 +30,7 @@ public class Score { // 엔터티 클래스. db랑 1:1로 매칭되는 클래스
 
 
     public Score() {
-        log.info("Score 기본 생성자 호출!!!");
+//        log.info("Score 기본 생성자 호출!!!");
     }
 
 

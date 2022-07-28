@@ -35,6 +35,9 @@
         <if test="sort == 'average'">
             ORDER BY average DESC
         </if>
+        <if test="sort == ''">
+            ORDER BY stu_num
+        </if>
 
     </select>
 
